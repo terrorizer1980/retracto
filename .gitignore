@@ -3,3 +3,5 @@
 /__pycache__/
 /app/__pycache__/
 /detection/__pycache__/
+/dataset
+.env

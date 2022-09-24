@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "retracto"
+version = "0.1.0"
+description = ""
+authors = ["Amit Krishna A <amit.ananthkumar@gmail.com>"]
+packages = [{include = "retracto"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "^2.28.1"
+typer = {extras = ["all"], version = "^0.6.1"}
+google-api-python-client = "^2.62.0"
+google-auth-oauthlib = "^0.5.3"
+cohere = "^2.4.2"
+
+[tool.poetry.scripts]
+retracto = "retracto.app:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
