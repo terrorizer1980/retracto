@@ -1,12 +1,14 @@
 import os
 import pickle
+from dotenv import load_dotenv
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 import cohere
 
 
+load_dotenv()
 co = cohere.Client(os.getenv('cohere_key'))
-CLIENT_SECRETS_FILE = 'client_secret.json'
+CLIENT_SECRETS_FILE = 'retracto/client_secret.json'
 SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl']
 API_SERVICE_NAME = 'youtube'
 API_VERSION = 'v3'

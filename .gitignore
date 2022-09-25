@@ -5,5 +5,6 @@
 /detection/__pycache__/
 /dataset
 .env
-/client_secret.json
+client_secret.json
 /cred
+__pycache__

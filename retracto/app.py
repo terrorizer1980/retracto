@@ -1,9 +1,7 @@
 import typer
-from dotenv import load_dotenv
 from .helpers import get_authenticated_service, classify_and_delete
 
 
-load_dotenv()
 app = typer.Typer()
 
 
