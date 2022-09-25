@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "retracto"
-version = "0.1.0"
-description = ""
+version = "1.0.2"
+description = "This app helps you as a youtube contnt creator to delete abusive and spam comments on a video in one shot."
 authors = ["Amit Krishna A <amit.ananthkumar@gmail.com>"]
 packages = [{include = "retracto"}]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.7"
