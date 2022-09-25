@@ -1,20 +1,20 @@
-from math import pi
-from pydantic import create_model_from_namedtuple
 import typer
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-from google.oauth2.credentials import Credentials
 import cohere
 import pickle
+import os
+from dotenv import load_dotenv
 
 
+load_dotenv()
 CLIENT_SECRETS_FILE = 'client_secret.json'
 SCOPES = ['https://www.googleapis.com/auth/youtube.force-ssl']
 API_SERVICE_NAME = 'youtube'
 API_VERSION = 'v3'
 
 app = typer.Typer()
-co = cohere.Client('4GulVsuVRGhCWBBQejv2WwZYeyIpJiE8VNL4MDqt')
+co = cohere.Client(os.getenv('cohere_key'))
 
 
 @app.command()
@@ -38,19 +38,21 @@ def comments(video_id: str):
 
 
 @app.command()
-def load():
+def login():
     """
-    Load the portal gun
+    login
     """
-    typer.echo("Loading portal gun")
+
+    get_authenticated_service(use_ex=False)
 
 
-def get_authenticated_service():
-    try:
-        credentials = pickle.load(open('cred', 'rb'))
-        return build(API_SERVICE_NAME, API_VERSION, credentials = credentials)
-    except:
-        pass
+def get_authenticated_service(use_ex=True):
+    if (use_ex):
+        try:
+            credentials = pickle.load(open('cred', 'rb'))
+            return build(API_SERVICE_NAME, API_VERSION, credentials = credentials)
+        except:
+            pass
 
     flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES)
     credentials = flow.run_local_server(host='localhost',
@@ -65,7 +67,7 @@ def get_authenticated_service():
 
 def classify_and_delete(inp, d, youtube):
     classifications = co.classify(
-        model='15b6a8b8-85de-4c4b-8adf-b5b7134e4ff5-ft',
+        model=os.getenv('model'),
         outputIndicator='this is:',
         inputs=inp)
 
@@ -78,7 +80,7 @@ def classify_and_delete(inp, d, youtube):
             out.update(d[c.input])
             spams.append(c.input)
 
-    print(spams)
+    print("Spam Comments are:" + spams)
     delete_comments(out, youtube)
 
       

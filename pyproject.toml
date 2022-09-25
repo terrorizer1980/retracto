@@ -12,6 +12,7 @@ typer = {extras = ["all"], version = "^0.6.1"}
 google-api-python-client = "^2.62.0"
 google-auth-oauthlib = "^0.5.3"
 cohere = "^2.4.2"
+python-dotenv = "^0.21.0"
 
 [tool.poetry.scripts]
 retracto = "retracto.app:app"
